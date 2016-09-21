@@ -19,7 +19,7 @@ PdfBytes pdfBytes = new PdfBytes() {
    *** DocPageSize = PageSize.A4
 };
 
-pdfBytes.GetPdfBytesArray("<h1>Hello</h1>");
+pdfBytes.GetPdfBytesArray("\<h1>Hello\</h1>");
  *  Centers : Is your Object of data. 
 **  MasterViewName : Layout of your Action. 
 *** DocPageSize : This is to specify size and orientation both. Chose a size and at end call rotate for Landscape or 
