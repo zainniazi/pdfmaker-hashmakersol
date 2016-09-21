@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PDFMaker-HashMakerSol</id>
+    <title>PDF Maker - #Maker Solutions</title>
+    <version>1.0.3</version>
+    <authors>Zain Ahmad Khan</authors>
+    <owners>#Maker Solutions</owners>
+    <iconUrl>http://www.hashmakersol.com/Uploads/logo@2x.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This Package Contains a light weight PDFMaker which is faster than others in market and hastle free. Others have issues with most of the hosting where those sites doesn't allow them to run.</description>
+    <copyright>#Maker Solutions - Copyright 2016</copyright>
+    <tags>PDFCreater PDF Creater Maker PDFMaker PDFResult Maker #MakerSolutions #Maker #Solutions</tags>
+	<summary>
+	You can make pdf by simply returning return new PdfResult(). 
+	There are multiple overloads available for you to select an data object or a action other than your current one. 
+
+Moreover you can pass parameters to specify master layout if any, document size, File Download Name. 
+
+Example: 
+return new PdfResult(Centers) { MasterViewName = "_PDFLayout", DocPageSize = PageSize.A4.Rotate() }; 
+
+Centers : Is your Object of data. 
+MasterViewName : Layout of your Action. 
+DocPageSize : This is to specify size and orientation both. Chose a size and at end call rotate for Landscape or Leave as it is for Horizontal.
+	</summary>
+	<releaseNotes>
+	You can make pdf by simply returning return new PdfResult(). 
+	There are multiple overloads available for you to select an data object or a action other than your current one. 
+
+Moreover you can pass parameters to specify master layout if any, document size, File Download Name. 
+
+Example: 
+return new PdfResult(Centers) { MasterViewName = "_PDFLayout", DocPageSize = PageSize.A4.Rotate() }; 
+
+Centers : Is your Object of data. 
+MasterViewName : Layout of your Action. 
+DocPageSize : This is to specify size and orientation both. Chose a size and at end call rotate for Landscape or Leave as it is for Horizontal.
+	</releaseNotes>
+    <dependencies>
+	  <dependency id="iTextSharp" version="5.5.9"  />
+	  <dependency id="itextsharp.xmlworker" version="5.5.9"  />
+	  <dependency id="Microsoft.AspNet.Mvc" version="5.2.3"  />
+	  <dependency id="Microsoft.AspNet.Razor" version="3.2.3"  />
+	  <dependency id="Microsoft.AspNet.WebPages" version="3.2.3"  />
+	  <dependency id="Microsoft.Web.Infrastructure" version="1.0.0.0"  />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\HashMakerSol\HashMakerSol\bin\Debug\HashMakerSol.dll" target="lib\net452" /> 
+    <file src="..\HashMakerSol\HashMakerSol\bin\Debug\HashMakerSol.dll" target="lib\net461" /> 
+</files>
+</package>

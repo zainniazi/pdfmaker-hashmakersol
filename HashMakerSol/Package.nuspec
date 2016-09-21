@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PDF Maker - HashMakerSol</id>
+    <version>1.0.0</version>
+    <authors>Zain Ahmad Khan</authors>
+    <owners>#Maker Solutions</owners>
+    <iconUrl>http://www.hashmakersol.com/Uploads/logo@2x.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This Package Contains a light weight PDFMaker which is faster than others in market and hastle free. Others have issues with most of the hosting where those sites doesn't allow them to run.</description>
+    <copyright>#Maker Solutions - Copyright 2016</copyright>
+    <tags>PDFMaker PDFResult PDF Maker #MakerSolutions</tags>
+    <dependencies>
+  <dependency id="iTextSharp" version="5.5.9"  />
+  <dependency id="itextsharp.xmlworker" version="5.5.9"  />
+  <dependency id="Microsoft.AspNet.Mvc" version="5.2.3"  />
+  <dependency id="Microsoft.AspNet.Razor" version="3.2.3"  />
+  <dependency id="Microsoft.AspNet.WebPages" version="3.2.3"  />
+  <dependency id="Microsoft.Web.Infrastructure" version="1.0.0.0"  />
+    </dependencies>
+  </metadata>
+</package>
