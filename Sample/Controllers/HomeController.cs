@@ -1,5 +1,7 @@
-﻿using hashmakersol.pdfmaker;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using hashmakersol.pdfmaker;
+using hashmakersol.Sample.Models;
+using iTextSharp.text;
 
 namespace hashmakersol.Sample.Controllers
 {
@@ -9,6 +11,20 @@ namespace hashmakersol.Sample.Controllers
         public ActionResult Index()
         {
             return new PdfResult();
+        }
+
+        public ActionResult ViewName()
+        {
+            return new PdfResult("Index", docPageSize: PageSize.A4);
+        }
+
+        public ActionResult Model()
+        {
+            var model = new TestModel
+            {
+                Name = "John Doe"
+            };
+            return new PdfResult(model, "PDFLayout", docPageSize: PageSize.A4);
         }
     }
 }

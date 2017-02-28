@@ -8,7 +8,7 @@ namespace hashmakersol.pdfmaker
     public static class Constants
     {
         /// <summary>
-        /// Convert relative link to absolute link
+        ///     Convert relative link to absolute link
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns></returns>
@@ -16,23 +16,25 @@ namespace hashmakersol.pdfmaker
         {
             if (input == null)
                 return string.Empty;
-            string tempInput = input;
+            var tempInput = input;
             const string pattern = @"<img(.|\n)+?>";
-            HttpContext context = HttpContext.Current;
+            var context = HttpContext.Current;
 
             //Change the relative URL's to absolute URL's for an image, if any in the HTML code.
-            foreach (Match m in Regex.Matches(input, pattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.RightToLeft))
-            {
+            foreach (
+                Match m in
+                Regex.Matches(input, pattern,
+                    RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.RightToLeft))
                 if (m.Success)
                 {
-                    string tempM = m.Value;
-                    string pattern1 = "src=[\'|\"](.+?)[\'|\"]";
-                    Regex reImg = new Regex(pattern1, RegexOptions.IgnoreCase | RegexOptions.Multiline);
-                    Match mImg = reImg.Match(m.Value);
+                    var tempM = m.Value;
+                    var pattern1 = "src=[\'|\"](.+?)[\'|\"]";
+                    var reImg = new Regex(pattern1, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                    var mImg = reImg.Match(m.Value);
 
                     if (mImg.Success)
                     {
-                        string src = mImg.Value.ToLower().Replace("src=", "").Replace("\"", "").Replace("\'", "");
+                        var src = mImg.Value.ToLower().Replace("src=", "").Replace("\"", "").Replace("\'", "");
 
                         if (!src.StartsWith("http://") && !src.StartsWith("https://"))
                         {
@@ -54,7 +56,6 @@ namespace hashmakersol.pdfmaker
                         }
                     }
                 }
-            }
             return tempInput;
         }
 
@@ -62,23 +63,25 @@ namespace hashmakersol.pdfmaker
         {
             if (input == null)
                 return string.Empty;
-            string tempInput = input;
+            var tempInput = input;
             const string pattern = @"<link(.|\n)+?/>";
-            HttpContext context = HttpContext.Current;
+            var context = HttpContext.Current;
 
             //Change the relative URL's to absolute URL's for an image, if any in the HTML code.
-            foreach (Match m in Regex.Matches(input, pattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.RightToLeft))
-            {
+            foreach (
+                Match m in
+                Regex.Matches(input, pattern,
+                    RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.RightToLeft))
                 if (m.Success)
                 {
-                    string tempM = m.Value;
-                    string pattern1 = "href=[\'|\"](.+?)[\'|\"]";
-                    Regex reImg = new Regex(pattern1, RegexOptions.IgnoreCase | RegexOptions.Multiline);
-                    Match mImg = reImg.Match(m.Value);
+                    var tempM = m.Value;
+                    var pattern1 = "href=[\'|\"](.+?)[\'|\"]";
+                    var reImg = new Regex(pattern1, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                    var mImg = reImg.Match(m.Value);
 
                     if (mImg.Success)
                     {
-                        string src = mImg.Value.ToLower().Replace("href=", "").Replace("\"", "").Replace("\'", "");
+                        var src = mImg.Value.ToLower().Replace("href=", "").Replace("\"", "").Replace("\'", "");
 
                         if (!src.StartsWith("http://") && !src.StartsWith("https://"))
                         {
@@ -100,37 +103,34 @@ namespace hashmakersol.pdfmaker
                         }
                     }
                 }
-            }
             return tempInput;
         }
 
         public static List<string> GetCSSLinks(string input)
         {
-            List<string> result = new List<string>();
+            var result = new List<string>();
             if (input == null)
                 return result;
 
             input = FormatCSSLinks(input);
-            string tempInput = input;
+            var tempInput = input;
             const string pattern = @"<link(.|\n)+?\/>";
-            HttpContext context = HttpContext.Current;
+            var context = HttpContext.Current;
 
             //Change the relative URL's to absolute URL's for an image, if any in the HTML code.
             foreach (Match m in Regex.Matches(input, pattern))
-            {
                 if (m.Success)
                 {
-                    string pattern1 = "href=[\'|\"](.+?)[\'|\"]";
-                    Regex reImg = new Regex(pattern1, RegexOptions.IgnoreCase | RegexOptions.Multiline);
-                    Match mImg = reImg.Match(m.Value);
-                    string endString = mImg.Value;
+                    var pattern1 = "href=[\'|\"](.+?)[\'|\"]";
+                    var reImg = new Regex(pattern1, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                    var mImg = reImg.Match(m.Value);
+                    var endString = mImg.Value;
 
                     endString = endString.Replace(" ", "");
-                    int startIndex = endString.IndexOf("=");
+                    var startIndex = endString.IndexOf("=");
                     endString = endString.Substring(startIndex + 1).Replace("\"", "");
                     result.Add(endString);
                 }
-            }
             return result;
         }
     }
