@@ -1,4 +1,6 @@
-﻿using iTextSharp.text;
+﻿using System.IO;
+using System.Linq;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
 using iTextSharp.tool.xml.html;
@@ -6,10 +8,8 @@ using iTextSharp.tool.xml.parser;
 using iTextSharp.tool.xml.pipeline.css;
 using iTextSharp.tool.xml.pipeline.end;
 using iTextSharp.tool.xml.pipeline.html;
-using System.IO;
-using System.Linq;
 
-namespace HashMakerSol.PDFMaker
+namespace hashmakersol.pdfmaker
 {
     public class PdfBytes
     {

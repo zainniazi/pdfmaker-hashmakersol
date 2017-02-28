@@ -1,71 +1,47 @@
-﻿using iTextSharp.text;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Web.Mvc;
+using iTextSharp.text;
 
-namespace HashMakerSol.PDFMaker
+namespace hashmakersol.pdfmaker
 {
     public class PdfResult : ActionResult
     {
-        // Properties
-        private string Action { get; set; }
-
-        private object Model { get; set; }
-
-        private string _contentType;
-
-        public string ContentType
-        {
-            get { return (_contentType ?? "application/pdf"); }
-            set { _contentType = value; }
-        }
-
-        private string _fileDownloadName;
-
-        public string FileDownloadName
-        {
-            get { return (_fileDownloadName ?? string.Empty); }
-            set { _fileDownloadName = value; }
-        }
-
-        private Rectangle _pageSize;
-
-        public Rectangle DocPageSize
-        {
-            get { return (_pageSize ?? PageSize.A4); }
-            set { _pageSize = value; }
-        }
-
-        private string _masterViewName;
-
-        public string MasterViewName
-        {
-            get { return (_masterViewName ?? string.Empty); }
-            set { _masterViewName = value; }
-        }
-
+        private const string ContentType = "application/pdf";
+        private string ViewName { get; }
+        private object Model { get; }
+        private readonly string _fileDownloadName;
+        private readonly Rectangle _pageSize;
+        private readonly string _masterViewName;
         public PdfResult()
-        { }
-
-        public PdfResult(string Action)
+            : this(null, null, null, null, null)
         {
-            ContentType = "application/pdf";
-            this.Action = Action;
+        }
+        public PdfResult(string viewName, string masterViewName = null,
+            string fileDownloadName = null,
+            Rectangle docPageSize = null)
+            : this(viewName, null, masterViewName, fileDownloadName, docPageSize)
+        {
         }
 
-        public PdfResult(object Object)
+        public PdfResult(object model, string masterViewName = null,
+            string fileDownloadName = null,
+            Rectangle docPageSize = null)
+            : this(null, model, masterViewName, fileDownloadName, docPageSize)
         {
-            ContentType = "application/pdf";
-            Model = Object;
         }
 
-        public PdfResult(string Action, object Object)
+        public PdfResult(string viewName, object model, string masterViewName = null,
+            string fileDownloadName = null,
+            Rectangle docPageSize = null)
         {
-            ContentType = "application/pdf";
-            this.Action = Action;
-            Model = Object;
+            ViewName = viewName;
+            Model = model;
+            _masterViewName = masterViewName;
+            _fileDownloadName = fileDownloadName;
+            _pageSize = docPageSize ?? PageSize.A4;
         }
 
         public override void ExecuteResult(ControllerContext context)
@@ -80,44 +56,41 @@ namespace HashMakerSol.PDFMaker
             var cd = new ContentDisposition
             {
                 Inline = false,
-                FileName = FileDownloadName,
+                FileName = _fileDownloadName,
                 DispositionType = "Inline",
                 CreationDate = DateTime.Now
             };
             response.AppendHeader("Content-Disposition", cd.ToString());
 
-            string CheckAction = string.IsNullOrWhiteSpace(Action) ? context.RouteData.Values["action"].ToString() : Action;
-            string pHtml = RenderRazorViewToString(CheckAction, Model, context);
+            var checkAction = string.IsNullOrWhiteSpace(ViewName) ?
+                context.RouteData.Values["action"].ToString() : ViewName;
+            var pHtml = RenderRazorViewToString(checkAction, Model, context);
 
-            PdfBytes Pdf = new PdfBytes()
+            var pdf = new PdfBytes()
             {
-                DocPageSize = DocPageSize
+                DocPageSize = _pageSize
             };
-            var PdfBytes = Pdf.GetPdfBytesArray(pHtml);
-            response.OutputStream.Write(PdfBytes, 0, PdfBytes.Count());
+            var pdfBytes = pdf.GetPdfBytesArray(pHtml);
+            response.OutputStream.Write(pdfBytes, 0, pdfBytes.Length);
         }
 
-        private string RenderRazorViewToString(string viewName, object model, ControllerContext Context)
+        private string RenderRazorViewToString(string viewName, object model, ControllerContext context)
         {
-            Context.Controller.ViewData.Model = model;
-            Context.Controller.ViewBag.PDF = true;
+            context.Controller.ViewData.Model = model;
+            context.Controller.ViewBag.PDF = true;
             using (var sw = new StringWriter())
             {
-                ViewEngineResult viewResult = null;
-                if (string.IsNullOrEmpty(MasterViewName))
-                    viewResult = ViewEngines.Engines.FindPartialView(Context, viewName);
-                else
-                    viewResult = ViewEngines.Engines.FindView(Context, viewName, MasterViewName);
-
+                var viewResult = string.IsNullOrEmpty(_masterViewName) ? 
+                    ViewEngines.Engines.FindPartialView(context, viewName) :
+                    ViewEngines.Engines.FindView(context, viewName, _masterViewName);
                 if (viewResult == null)
                 {
                     throw new Exception("View Not Found");
                 }
-
-                var viewContext = new ViewContext(Context, viewResult.View,
-                                             Context.Controller.ViewData, Context.Controller.TempData, sw);
+                var viewContext = new ViewContext(context, viewResult.View,
+                                             context.Controller.ViewData, context.Controller.TempData, sw);
                 viewResult.View.Render(viewContext, sw);
-                viewResult.ViewEngine.ReleaseView(Context, viewResult.View);
+                viewResult.ViewEngine.ReleaseView(context, viewResult.View);
                 return sw.GetStringBuilder().ToString();
             }
         }

@@ -8,8 +8,8 @@
     <ProjectGuid>{0451BAEF-DF2E-4B98-8644-94EE9415E389}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PDFMaker_HashMakerSol</RootNamespace>
-    <AssemblyName>PDFMaker-HashMakerSol</AssemblyName>
+    <RootNamespace>hashmakersol.nuget</RootNamespace>
+    <AssemblyName>hashmakersol.nuget</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>

@@ -7,8 +7,8 @@
     <ProjectGuid>{39603049-7A11-4E17-90F2-4408D5EAFE51}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HashMakerSol</RootNamespace>
-    <AssemblyName>HashMakerSol</AssemblyName>
+    <RootNamespace>hashmakersol.pdfmaker</RootNamespace>
+    <AssemblyName>hashmakersol.pdfmaker</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

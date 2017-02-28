@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace HashMakerSol
+namespace hashmakersol.pdfmaker
 {
-    public class Constants
+    public static class Constants
     {
         /// <summary>
         /// Convert relative link to absolute link
