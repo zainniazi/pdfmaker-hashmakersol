@@ -21,14 +21,14 @@ namespace hashmakersol.pdfmaker
         public PdfResult(string viewName, string masterViewName = null,
             string fileDownloadName = null,
             Rectangle docPageSize = null)
-            : this(viewName, null, masterViewName, fileDownloadName, docPageSize)
+                : this(viewName, null, masterViewName, fileDownloadName, docPageSize)
         {
         }
 
         public PdfResult(object model, string masterViewName = null,
             string fileDownloadName = null,
             Rectangle docPageSize = null)
-            : this(null, model, masterViewName, fileDownloadName, docPageSize)
+                : this(null, model, masterViewName, fileDownloadName, docPageSize)
         {
         }
 
